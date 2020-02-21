@@ -54,6 +54,7 @@ function hogwartsGame() {
 
   function gameStart() {
     document.querySelector('.easygrid').style.visibility = 'visible'
+    // document.querySelector('.easygrid').style.display = 'flex'
     for (let i = 0; i < gridSize; i++) {
       const cell = document.createElement('div')
       cell.classList.add('cell')

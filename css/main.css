@@ -14,6 +14,8 @@
   background-size: cover;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .bodyimages {
@@ -37,6 +39,7 @@
   height: 100vh;
   background-image: url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2019/01/Harry-Potter-Voldemort.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .header {
@@ -126,6 +129,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  transform: translateY(-40%);
 }
 
 .cell {
