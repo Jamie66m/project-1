@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+  font-family: 'HarryPotter', sans-serif;
+}
+@font-face {
+  font-family: 'HarryPotter';
+  src: url('/css/HARRYP__.TTF') format('truetype');
+}
+
+.body {
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-image: url('../images/backgroundimage2.jpg');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.bodyimages {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.bodyimagebutton {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bodyimagebutton:hover {
+  transform: scale(1.1);
+}
+
+.mainimg {
+  height: 100vh;
+  background-image: url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2019/01/Harry-Potter-Voldemort.jpg');
+  background-size: cover;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  background: -webkit-linear-gradient(rgb(248, 223, 0), rgb(250, 151, 2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'HarryPotter', sans-serif;
+  letter-spacing: 5px;
+  font-size: 70px;
+  text-align: center;
+}
+
+.instructions {
+  background: -webkit-linear-gradient(rgb(248, 223, 0), rgb(250, 151, 2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'HarryPotter', sans-serif;
+  letter-spacing: 5px;
+  font-size: 40px;
+  text-align: center;
+  margin: -30px auto 30px;
+  cursor: pointer;
+  width: 300px;
+}
+
+.divinstructions {
+  background-image: url('../images/instructionsbackground2.jpg');
+  background-size: cover;
+  border-radius: 5px;
+  margin-top: -30px;
+}
+
+
+.instructions2 {
+  font-size: 30px;
+  text-align: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 10px;
+}
+
+.exit {
+  color: #ff2323;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.instructiondescription {
+  text-align: center;
+  height: 300px;
+  font-size: small;
+}
+
+.story {
+  max-width: 700px;
+  margin-top: 0;
+}
+
+.divlevels {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.levels{
+  background: -webkit-linear-gradient(rgb(248, 223, 0), rgb(250, 151, 2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'HarryPotter', sans-serif;
+  letter-spacing: 5px;
+  font-size: 30px;
+  margin: 0px 27px;
+}
+
+.grid {
+
+}
+
+.harry {
+
+}
+
+.dementors {
+
+}
+
+.voldemort {
+
+}
+
+.harrySpellPatronas {
+
+}
+
+.harrySpellStupify {
+
+}
+
+.dementorSpell {
+
+}
+
+.voldemortSpell {
+
+}
