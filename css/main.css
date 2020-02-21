@@ -117,16 +117,32 @@
   margin: 0px 27px;
 }
 
-.grid {
-
+.easygrid {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid grey;
+  width: 600px;
+  height: 600px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
+.cell {
+  width: 5%;
+  height: 5%;
+  border: 1px solid rgb(128, 109, 0);
+}
 .harry {
-
+  background-image: url('../images/harrypotter.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .dementors {
-
+  background-image: url('../images/dementor1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .voldemort {
