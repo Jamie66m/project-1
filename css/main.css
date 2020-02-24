@@ -126,9 +126,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'HarryPotter', sans-serif;
-  letter-spacing: 5px;
+  letter-spacing: 2px;
   font-size: 30px;
-  transform: translate(-400px, -200px);
+  transform: translate(-250px, -500px);
 }
 
 .lives {
@@ -136,9 +136,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'HarryPotter', sans-serif;
-  letter-spacing: 5px;
+  letter-spacing: 2px;
   font-size: 30px;
-  transform: translate(-400px, -250px);
+  transform: translate(200px, -610px);
 }
 
 .easygrid {
@@ -172,6 +172,7 @@
   background-image: url('../images/dementor1.png');
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .voldemort {

@@ -4,9 +4,10 @@ function hogwartsGame() {
   const easyGrid = document.querySelector('.easygrid')
   const gridSize = width ** 2
   const cells = []
-  const harry = 389
+  let harry = 389
   // const voldemort = 229
   const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96]
+  const intervals = []
   // let harryLives = 3
   // let voldemortLives = 3
   // let score = null
@@ -15,7 +16,6 @@ function hogwartsGame() {
   // const winGame = document.querySelector('harrywins')
   // const spellCell
   // const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-  
 
   function homePage() {
     document.querySelector('.body').style.visibility = 'visible'
@@ -84,6 +84,7 @@ function hogwartsGame() {
       cells.push(cell)
     }
     loadDementors()
+    dementorMove()
   }
 
   function loadDementors() {
@@ -94,6 +95,119 @@ function hogwartsGame() {
     }
   }
 
+  function moveDementors() {
+    dementors.forEach(alien => {
+      cells[alien].classList.remove('dementors')
+    })
+    for (var i = 0; i < dementors.length; i++) {
+      dementors[i] += 1
+    }
+    dementors.forEach(alien => {
+      cells[alien].classList.add('dementors')
+    })
+  }
+
+  function moveDown() {
+    dementors.forEach(alien => {
+      cells[alien].classList.remove('dementors')
+    })
+    for (var i = 0; i < dementors.length; i++) {
+      dementors[i] += 20
+    }
+    dementors.forEach(alien => {
+      cells[alien].classList.add('dementors')
+    })
+  }
+
+  function moveLeft() {
+    dementors.forEach(alien => {
+      cells[alien].classList.remove('dementors')
+    })
+    for (var i = 0; i < dementors.length; i++) {
+      dementors[i] -= 1
+    }
+    dementors.forEach(alien => {
+      cells[alien].classList.add('dementors')
+    })
+  }
+	
+  function dementorMove() {
+    const dementorMoveInterval = setInterval(() => {
+      setTimeout(() => {
+        moveDementors()
+      }, 1500)
+      setTimeout(() => {
+        moveDown() 
+      }, 2000)
+      setTimeout(() => {
+        moveLeft()
+      }, 2500)
+    //   for (let i = 0; i < aliens.length; i++) {
+    //     if (aliens[i] >= 359) {
+    //       loseGame()
+    //     }
+    //   }
+    }, 3000)
+    intervals.push(dementorMoveInterval)
+  }
+  
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') {
+      if (harry === cells.length - 1) {
+        return
+      }
+      cells[harry].classList.remove('harry')
+      harry += 1
+      cells[harry].classList.add('harry')
+    } else if (event.key === 'ArrowLeft') {
+      if (harry === 380) {
+        return
+      }
+      cells[harry].classList.remove('harry')
+      harry -= 1
+      cells[harry].classList.add('harry')
+    } 
+  })
+
+  // function harrySpellPatronas() {
+
+  // }
+
+  // function harrySpellyStupify() {
+
+  // }
+
+  // function dementorSpell() {
+
+  // }
+
+  // function voldemortAppear() {
+
+  // }
+
+  // function voldermortMove() {
+
+  // }
+
+  // function voldemortLoseLife() {
+
+  // }
+
+  // function harryLoseLife() {
+
+  // }
+
+  // function loseGame() {
+
+  // }
+
+  // function winGame() {
+
+  // }
+
+  // function resetGame() {
+
+  // }
 
 }
 
