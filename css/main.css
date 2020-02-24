@@ -59,6 +59,7 @@
   text-align: center;
 }
 
+
 .instructions {
   background: -webkit-linear-gradient(rgb(248, 223, 0), rgb(250, 151, 2));
   -webkit-background-clip: text;
@@ -120,6 +121,26 @@
   margin: 0px 27px;
 }
 
+.score {
+  background: -webkit-linear-gradient(rgb(248, 223, 0), rgb(250, 151, 2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'HarryPotter', sans-serif;
+  letter-spacing: 5px;
+  font-size: 30px;
+  transform: translate(-400px, -200px);
+}
+
+.lives {
+  background: -webkit-linear-gradient(rgb(248, 223, 0), rgb(250, 151, 2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'HarryPotter', sans-serif;
+  letter-spacing: 5px;
+  font-size: 30px;
+  transform: translate(-400px, -250px);
+}
+
 .easygrid {
   display: flex;
   flex-direction: row;
@@ -129,7 +150,10 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  transform: translateY(-40%);
+  /* transform: translateY(-45%); */
+  /* background-image: url('../images/Hogwarts.jpg'); */
+  background-size: 600px 600px;
+  background-repeat: no-repeat;
 }
 
 .cell {
@@ -141,6 +165,7 @@
   background-image: url('../images/harrypotter.png');
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .dementors {

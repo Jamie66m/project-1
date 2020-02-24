@@ -5,12 +5,23 @@ function hogwartsGame() {
   const gridSize = width ** 2
   const cells = []
   const harry = 389
-  // const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
-  //   60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78]
+  // const voldemort = 229
+  const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96]
+  // let harryLives = 3
+  // let voldemortLives = 3
+  // let score = null
+  // const resetButton = document.querySelector('resetbutton')
+  // const loseGame = document.querySelector('harryloses')
+  // const winGame = document.querySelector('harrywins')
+  // const spellCell
+  // const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  
 
   function homePage() {
     document.querySelector('.body').style.visibility = 'visible'
     document.querySelector('.easygrid').style.visibility = 'hidden'
+    document.querySelector('.lives').style.visibility = 'hidden'
+    document.querySelector('.score').style.visibility = 'hidden'
     document.querySelector('.divinstructions').style.display = 'none'
     const bodyImageButtons = document.querySelectorAll('.bodyimagebutton')
     for (const bodyImageButton of bodyImageButtons) {
@@ -34,6 +45,7 @@ function hogwartsGame() {
       document.querySelector('.divlevels').style.visibility = 'hidden'
       document.querySelector('.bodyimages').style.visibility = 'hidden'
       body.classList.add('mainimg')
+      document.querySelector('.easygrid').style.visibility = 'visible'
       gameStart()
     })
   }
@@ -43,6 +55,7 @@ function hogwartsGame() {
     document.querySelector('.title').style.visibility = 'hidden'
     document.querySelector('.divlevels').style.visibility = 'hidden'
     document.querySelector('.bodyimages').style.visibility = 'hidden'
+    document.querySelector('.bodyimages').style.display = 'none'
   })
   const exitInstructions = document.querySelector('.exit')
   exitInstructions.addEventListener('click', () => {
@@ -50,11 +63,17 @@ function hogwartsGame() {
     document.querySelector('.title').style.visibility = 'visible'
     document.querySelector('.divlevels').style.visibility = 'visible'
     document.querySelector('.bodyimages').style.visibility = 'visible'
+    document.querySelector('.bodyimages').style.display = 'block'
   })
 
   function gameStart() {
-    document.querySelector('.easygrid').style.visibility = 'visible'
-    // document.querySelector('.easygrid').style.display = 'flex'
+    easyGrid.style.position = 'absolute'
+    document.querySelector('.score').style.visibility = 'visible'
+    document.querySelector('.lives').style.visibility = 'visible'
+    const harryLives = document.querySelector('#addlives')
+    harryLives.innerHTML = 3
+    const playerScore = document.querySelector('#addscore')
+    playerScore.innerHTML = 0
     for (let i = 0; i < gridSize; i++) {
       const cell = document.createElement('div')
       cell.classList.add('cell')
@@ -64,7 +83,18 @@ function hogwartsGame() {
       easyGrid.appendChild(cell)
       cells.push(cell)
     }
+    loadDementors()
   }
+
+  function loadDementors() {
+    for (let i = 0; i < gridSize; i++) {
+      if (dementors.includes(i)) {
+        cells[i].classList.add('dementors')
+      }
+    }
+  }
+
+
 }
 
 window.addEventListener('DOMContentLoaded', hogwartsGame)
