@@ -31,6 +31,10 @@ function hogwartsGame() {
   expectoPatronumSound.playbackRate = 1
   expectoPatronumSound.volume = 0.1
 
+  const gameMusic = new Audio()
+  gameMusic.src = 'sounds/game.mp3'
+  gameMusic.volume = 0.1
+
 
   function homePage() {
     document.querySelector('.body').style.visibility = 'visible'
@@ -114,6 +118,7 @@ function hogwartsGame() {
     loadDementors()
     dementorMove()
     backgroundMusic.pause()
+    gameMusic.play()
   }
 
   function loadDementors() {
@@ -282,6 +287,7 @@ function hogwartsGame() {
     document.querySelector('#harryloses').style.display = 'block'
     document.querySelector('.fly').style.visibility = 'visible'
     flyHome()
+    gameMusic.pause()
   }
 
   // function winGame() {
@@ -290,6 +296,7 @@ function hogwartsGame() {
   //   document.querySelector('#harrywins').style.display = 'block'
   //   document.querySelector('.fly').style.visibility = 'visible'
   //   flyHome()
+  //   gameMusic.pause()
   // }
 
 
