@@ -42,6 +42,7 @@ function hogwartsGame() {
     document.querySelector('#harryloses').style.visibility = 'hidden'
     document.querySelector('#harryloses').style.display = 'none'
     document.querySelector('.divinstructions').style.display = 'none'
+    document.querySelector('.divinstructions').style.visibility = 'hidden'
     document.querySelector('.fly').style.visibility = 'hidden'
     const bodyImageButtons = document.querySelectorAll('.bodyimagebutton')
     for (const bodyImageButton of bodyImageButtons) {
@@ -73,6 +74,7 @@ function hogwartsGame() {
   const instructions = document.querySelector('.instructions')
   instructions.addEventListener('mouseover', () => {
     document.querySelector('.divinstructions').style.display = 'block'
+    document.querySelector('.divinstructions').style.visibility = 'visible'
     document.querySelector('.title').style.visibility = 'hidden'
     document.querySelector('.divlevels').style.visibility = 'hidden'
     document.querySelector('.bodyimages').style.visibility = 'hidden'
@@ -199,8 +201,8 @@ function hogwartsGame() {
       expectoPatronumSound.play()
     } else if (event.key === 'a') {
       event.preventDefault()
-      playSound()
-      console.log(playSound())
+      playSpellSound()
+      console.log(playSpellSound())
     }
   })
 
@@ -228,7 +230,7 @@ function hogwartsGame() {
   function generateRandomNumber(max) {
     return Math.floor(Math.random() * max)
   }
-  function playSound() {
+  function playSpellSound() {
     const x = generateRandomNumber(spells.length - 1)
     const spellSrc = spells[x]
     if (spellSound) {
@@ -237,6 +239,7 @@ function hogwartsGame() {
       spellSound = new Audio()
     }
     spellSound.src = spellSrc
+    spellSound.volume = 0.1
     spellSound.play()
   }
  
