@@ -12,7 +12,7 @@ function hogwartsGame() {
   // let score = null
   // const spellCell
   // const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-  
+
   const backgroundMusic = new Audio()
   backgroundMusic.src = 'sounds/background.mp3'
   backgroundMusic.volume = 0.1
@@ -89,6 +89,7 @@ function hogwartsGame() {
     document.querySelector('.bodyimages').style.display = 'block'
     backgroundMusic.play()
     mischief.play()
+    maraudersMap.pause()
   })
 
   function gameStart() {
@@ -195,10 +196,11 @@ function hogwartsGame() {
       cells[harry].classList.add('harry')
     } else if (event.key === ' ') {
       event.preventDefault()
-      expectoPatronumSound.play()  
+      expectoPatronumSound.play()
     } else if (event.key === 'a') {
       event.preventDefault()
-      playRandomSpellSound()
+      playSound()
+      console.log(playSound())
     }
   })
 
@@ -206,14 +208,38 @@ function hogwartsGame() {
 
   // }
 
-  function playRandomSpellSound() {
-    // instead of doing different spells I think I am going to add randomSpellSounds for when I press spacebar.
-    // play this function on the key e when you are trying to kill voldermort
-  }
-
-  // function harrySpellyStupify() {
+  // function harryAllSpells() {
 
   // }
+
+  const spells = [ 'sounds/stupefy.mp3', 
+    'sounds/sectumsempra.mp3',
+    'sounds/rictusempra.mp3',
+    'sounds/reducto.mp3',
+    'sounds/reducio.mp3',
+    'sounds/periculum.mp3',
+    'sounds/harrycrucio.mp3',
+    'sounds/expelliarmus.mp3',
+    'sounds/diffindo.mp3',
+    'sounds/araniaexumai.mp3'
+  ]
+  let spellSound 
+
+  function generateRandomNumber(max) {
+    return Math.floor(Math.random() * max)
+  }
+  function playSound() {
+    const x = generateRandomNumber(spells.length - 1)
+    const spellSrc = spells[x]
+    if (spellSound) {
+      spellSound.pause()
+    } else {
+      spellSound = new Audio()
+    }
+    spellSound.src = spellSrc
+    spellSound.play()
+  }
+ 
 
   // function dementorSpell() {
 
