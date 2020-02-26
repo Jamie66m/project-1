@@ -5,14 +5,17 @@ function hogwartsGame() {
   const gridSize = width ** 2
   const cells = []
   let harry = 389
-  // const voldemort = 229
-  const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96]
-  // let harryLives = 3
-  // let voldemortLives = 3
+  let voldemort = 229
+  const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
+  let harryLives = 3
+  let lordVolLives = 3
   let score = 0
+  const playerScore = document.querySelector('#addscore')
   let spellPosition
-  // const spellCell
-  //const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  let allSpellPosition
+  // const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+  
 
   const backgroundMusic = new Audio()
   backgroundMusic.src = 'sounds/background.mp3'
@@ -37,11 +40,16 @@ function hogwartsGame() {
   gameMusic.volume = 0.2
   backgroundMusic.loop = 'loop'
 
+  const voldemortLaugh = new Audio()
+  voldemortLaugh.src = 'sounds/voldemortlaugh.mp3'
+
 
   function homePage() {
     document.querySelector('.body').style.visibility = 'visible'
     document.querySelector('.easygrid').style.visibility = 'hidden'
     document.querySelector('.lives').style.visibility = 'hidden'
+    document.querySelector('.voldemortlives').style.visibility = 'hidden'
+    document.querySelector('.voldemortlives').style.display = 'none'
     document.querySelector('.score').style.visibility = 'hidden'
     document.querySelector('#harrywins').style.visibility = 'hidden'
     document.querySelector('#harrywins').style.display = 'none'
@@ -104,9 +112,8 @@ function hogwartsGame() {
     easyGrid.style.position = 'absolute'
     document.querySelector('.score').style.visibility = 'visible'
     document.querySelector('.lives').style.visibility = 'visible'
-    const harryLives = document.querySelector('#addlives')
-    harryLives.innerHTML = 3
-    const playerScore = document.querySelector('#addscore')
+    const potterLives = document.querySelector('#addlives')
+    potterLives.innerHTML = 3
     playerScore.innerHTML = 0
     for (let i = 0; i < gridSize; i++) {
       const cell = document.createElement('div')
@@ -119,6 +126,7 @@ function hogwartsGame() {
     }
     loadDementors()
     dementorMove()
+    randomDementorSpell()
     backgroundMusic.pause()
     gameMusic.play()
   }
@@ -206,57 +214,87 @@ function hogwartsGame() {
     } else if (event.key === ' ') {
       event.preventDefault()
       spellPosition = harry - width
-      spellSuperArray.push([spellPosition])
+      patronasArray.push([spellPosition])
       harrySpellPatronas()
       spellsCast += 1
       expectoPatronumSound.play()
     } else if (event.key === 'a') {
       event.preventDefault()
+      allSpellPosition = harry - width
+      allSpellsArray.push([allSpellPosition])
+      harryAllMagic()
+      allSpellsCast += 1
       playSpellSound()
       console.log(playSpellSound())
     }
   })
 
-  const spellSuperArray = []
+  const patronasArray = []
   let spellsCast = 0
   let patronasSpell = harry - width
 
   function harrySpellPatronas() {
-    const spellArray = spellSuperArray[spellsCast]
+    const spellArray = patronasArray[spellsCast]
     const spellInterval = setInterval(() => {
-      cells[spellArray[0]].classList.remove('harrySpellPatronas')
+      cells[spellArray[0]].classList.remove('harrySpellExpecto')
       patronasSpell = spellArray[0] - width
-      cells[patronasSpell].classList.add('harrySpellPatronas')
+      cells[patronasSpell].classList.add('harrySpellExpecto')
       spellArray.pop()
       spellArray.push(patronasSpell)
       for (let i = 0; i < dementors.length; i++) {
         if (spellArray.includes(dementors[i])) {
           clearInterval(spellInterval)
-          cells[patronasSpell].classList.remove('dementors', 'harrySpellPatronas')
+          cells[patronasSpell].classList.remove('dementors', 'harrySpellExpecto')
           dementors.splice(i, 1)
           score += 100
-          document.querySelector('#addscore').innerHTML = score
+          playerScore.innerHTML = score
+          console.log(score)
           if (dementors.length === 0) {
-            winGame()
+            voldemortAppear()
+            voldemortLaugh.play()
           }
         }
       }
     }, 50)
-    // setTimeout(() => {
-    //   clearInterval(spellInterval)
-    //   // setTimeout(() => {
-    //   //   gridTopRow.forEach((i) => {
-    //   //     if (cells[i].className === 'harrySpellPatronas') {
-    //   //       cells[i].classList.remove('harrySpellPatronas')
-    //   //     }
-    //   //   })
-    //   // }, 30)
-    // }, 925)
+    setTimeout(() => {
+      clearInterval(spellInterval)
+      // setTimeout(() => {
+      //   if (gridTopRow.includes(patronasSpell)) {
+      //     cells[gridTopRow].classList.remove('harrySpellExpecto')
+      //   } 
+      // }, 30)
+    }, 925)
   }
 
-  // function harryAllSpells() {
+  const allSpellsArray = []
+  let allSpellsCast = 0
+  let allSpell = harry - width
 
-  // }
+  function harryAllMagic() {
+    const allArray = allSpellsArray[allSpellsCast]
+    const allInterval = setInterval(() => {
+      cells[allArray[0]].classList.remove('harryAllSpells')
+      allSpell = allArray[0] - width
+      cells[allSpell].classList.add('harryAllSpells')
+      allArray.pop()
+      allArray.push(allSpell)
+      if (allArray.includes(voldemort)) {
+        cells[allSpell].classList.remove('harryAllSpells')
+        clearInterval(allInterval)
+        // score += 500
+        // playerScore.innerHTML = score
+        voldemortLoseLife()
+      }  
+    }, 50)
+    setTimeout(() => {
+      clearInterval(allInterval)
+      // setTimeout(() => {
+      //   if (gridTopRow.contains('harryAllSpells')) {
+      //     cells[gridTopRow].classList.remove('harryAllSpells')
+      //   } 
+      // }, 30)
+    }, 925)
+  }
 
   const spells = [ 'sounds/stupefy.mp3', 
     'sounds/sectumsempra.mp3',
@@ -287,26 +325,102 @@ function hogwartsGame() {
     spellSound.play()
   }
  
+  const dementorSpellArray = []
+  let dementorSpellsCast = 0
+  let newDementorSpell 
 
-  // function dementorSpell() {
+  function spellDementor() {
+    const arrayDementorSpell = dementorSpellArray[dementorSpellsCast]
+    const dementorSpellInterval = setInterval(() => {
+      if (harryLives === 0) {
+        loseGame()
+      } else if (dementors.length === 0) {
+        clearInterval(dementorSpellInterval)
+        voldemortAppear()
+      }
+      cells[arrayDementorSpell[0]].classList.remove('dementorSpell')
+      newDementorSpell = arrayDementorSpell[0] + width
+      cells[newDementorSpell].classList.add('dementorSpell')
+      console.log(cells[newDementorSpell])
+      arrayDementorSpell.pop()
+      arrayDementorSpell.push(newDementorSpell)
+      if (cells[arrayDementorSpell].classList.contains('harry')) {
+        harryLoseLife()
+      }
+    }, 100)
+    setTimeout(() => {
+      clearInterval(dementorSpellInterval)
+    }, 10000)
+    // if (dementorSpell >= 379) {
+    //   // clearInterval(dementorSpellInterval)
+    //   // setTimeout(() => {
+    //   //   cells[arrayDementorSpell].classList.remove('dementorSpell')
+    //   // }, 60)
+  }
 
-  // }
+  let randomDementorSpells
+  function randomDementorSpell() {
+    const randomDementorSpellInterval = setInterval(() => {
+      randomDementorSpells = dementors[Math.floor(Math.random() * dementors.length)]
+      defineRandomDementorSpell()
+    }, 500)
+    if (dementors.length === 0) {
+      clearInterval(randomDementorSpellInterval)
+    }
+  }
 
-  // function randomDementorSpell() {
+  function defineRandomDementorSpell() {
+    cells[randomDementorSpells + width].classList.add('dementorSpell')
+    dementorSpellArray.push([randomDementorSpells + width])
+    spellDementor()
+    dementorSpellsCast += 1
+  }
 
-  // }
+  function voldemortAppear() {
+    for (let i = 0; i < gridSize; i++) {
+      if (i === voldemort) {
+        cells[i].classList.add('voldemort')
+      }
+    }
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        if (voldemort === 239) {
+          return
+        }
+        cells[voldemort].classList.remove('voldemort')
+        voldemort += 1
+        cells[voldemort].classList.add('voldemort')
+      } else if (event.key === 'ArrowLeft') {
+        if (voldemort === 220) {
+          return
+        }
+        cells[voldemort].classList.remove('voldemort')
+        voldemort -= 1
+        cells[voldemort].classList.add('voldemort')
+      } 
+    })
+    document.querySelector('.voldemortlives').style.visibility = 'visible'
+    document.querySelector('.voldemortlives').style.display = 'block'
+    document.querySelector('.score').style.transform = 'translate(-230px, -440px)'
+    document.querySelector('.lives').style.transform = 'translate(200px, -550px)'
+    const voldemortLives = document.querySelector('#addvoldemortlives')
+    voldemortLives.innerHTML = 3
+  }
 
-  // function voldemortAppear() {
-
-  // }
-
-  // function voldermortMove() {
-
-  // }
-
-  // function voldemortLoseLife() {
-
-  // }
+  function voldemortLoseLife() {
+    const voldemortLives = document.querySelector('#addvoldemortlives')
+    if (lordVolLives === 3) {
+      lordVolLives -= 1
+      voldemortLives.innerHTML = 2
+    } else if (lordVolLives === 2) {
+      lordVolLives -= 1
+      voldemortLives.innerHTML = 1
+    } else if (lordVolLives === 1) {
+      lordVolLives -= 1
+      voldemortLives.innerHTML = 0
+      winGame()
+    }
+  }
 
   // function voldemortSpell() {
 
@@ -316,15 +430,28 @@ function hogwartsGame() {
 
   //}
 
-  // function harryLoseLife() {
-
-  // }
+  function harryLoseLife() {
+    const potterLives = document.querySelector('#addlives')
+    if (harryLives === 3) {
+      harryLives -= 1
+      potterLives.innerHTML = 2
+    } else if (harryLives === 2) {
+      harryLives -= 1
+      potterLives.innerHTML = 1
+    } else if (harryLives === 1) {
+      harryLives -= 1
+      potterLives.innerHTML = 0
+      loseGame()
+    }
+  }
 
   function loseGame() {
     document.querySelector('.easygrid').style.visibility = 'hidden'
     document.querySelector('#harryloses').style.visibility = 'visible'
     document.querySelector('#harryloses').style.display = 'block'
     document.querySelector('.fly').style.visibility = 'visible'
+    document.querySelector('.score').style.transform = 'translate(-250px, -400px)'
+    document.querySelector('.lives').style.visibility = 'hidden'
     flyHome()
     gameMusic.pause()
   }
@@ -334,8 +461,8 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.fly').style.visibility = 'visible'
-    document.querySelector('.score').style.transform = 'translate(-250px, -400px)'
-    document.querySelector('.lives').style.transform = 'translate(200px, -510px)'
+    document.querySelector('.score').style.transform = 'translate(-250px, -390px)'
+    document.querySelector('.lives').style.transform = 'translate(200px, -500px)'
     flyHome()
     gameMusic.pause()
   }
