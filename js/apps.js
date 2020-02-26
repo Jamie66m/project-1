@@ -10,12 +10,10 @@ function hogwartsGame() {
   let harryLives = 3
   let lordVolLives = 3
   let score = 0
-  const playerScore = document.querySelector('#addscore')
   let spellPosition
   let allSpellPosition
-  // const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 
-  
 
   const backgroundMusic = new Audio()
   backgroundMusic.src = 'sounds/background.mp3'
@@ -66,6 +64,13 @@ function hogwartsGame() {
   }
   window.addEventListener('load', homePage)
 
+  // for (let i = 0; i < width ** 2; i++) {
+  //   const cell = document.createElement('div') 
+  //   easyGrid.appendChild(cell) 
+  //   cells.push(cell)       
+  // }
+	
+
   const bodyImageButtons1 = document.querySelectorAll('.bodyimagebutton')
   const body = document.querySelector('.body')
   for (const bodyImageButton2 of bodyImageButtons1) {
@@ -110,23 +115,24 @@ function hogwartsGame() {
 
   function gameStart() {
     easyGrid.style.position = 'absolute'
+    for (let i = 0; i < width ** 2; i++) {
+      const cell = document.createElement('div') 
+      easyGrid.appendChild(cell) 
+      cells.push(cell)       
+    }
+    cells[harry].classList.add('harry')
+    dementors.forEach((e) => {
+      cells[e].classList.add('dementor')  
+    })
+    loadDementors()
+    dementorMove()
+    randomDementorSpell()
     document.querySelector('.score').style.visibility = 'visible'
     document.querySelector('.lives').style.visibility = 'visible'
     const potterLives = document.querySelector('#addlives')
     potterLives.innerHTML = 3
+    const playerScore = document.querySelector('#addscore')
     playerScore.innerHTML = 0
-    for (let i = 0; i < gridSize; i++) {
-      const cell = document.createElement('div')
-      cell.classList.add('cell')
-      if (i === harry) {
-        cell.classList.add('harry')
-      }
-      easyGrid.appendChild(cell)
-      cells.push(cell)
-    }
-    loadDementors()
-    dementorMove()
-    randomDementorSpell()
     backgroundMusic.pause()
     gameMusic.play()
   }
@@ -247,6 +253,7 @@ function hogwartsGame() {
           cells[patronasSpell].classList.remove('dementors', 'harrySpellExpecto')
           dementors.splice(i, 1)
           score += 100
+          const playerScore = document.querySelector('#addscore')
           playerScore.innerHTML = score
           console.log(score)
           if (dementors.length === 0) {
@@ -258,11 +265,13 @@ function hogwartsGame() {
     }, 50)
     setTimeout(() => {
       clearInterval(spellInterval)
-      // setTimeout(() => {
-      //   if (gridTopRow.includes(patronasSpell)) {
-      //     cells[gridTopRow].classList.remove('harrySpellExpecto')
-      //   } 
-      // }, 30)
+      setTimeout(() => {
+        gridTopRow.forEach((i) => {
+          if (cells[i].className === 'harrySpellExpecto') {
+            cells[i].classList.remove('harrySpellExpecto')
+          }
+        })
+      }, 30)
     }, 925)
   }
 
@@ -288,11 +297,13 @@ function hogwartsGame() {
     }, 50)
     setTimeout(() => {
       clearInterval(allInterval)
-      // setTimeout(() => {
-      //   if (gridTopRow.contains('harryAllSpells')) {
-      //     cells[gridTopRow].classList.remove('harryAllSpells')
-      //   } 
-      // }, 30)
+      setTimeout(() => {
+        gridTopRow.forEach((i) => {
+          if (cells[i].className === 'harrySpellExpecto') {
+            cells[i].classList.remove('harrySpellExpecto')
+          }
+        })
+      }, 30)
     }, 925)
   }
 
@@ -347,15 +358,13 @@ function hogwartsGame() {
       if (cells[arrayDementorSpell].classList.contains('harry')) {
         harryLoseLife()
       }
+      if (newDementorSpell >= 399) {
+        clearInterval(dementorSpellInterval)
+        setTimeout(() => {
+          cells[arrayDementorSpell].classList.remove('bomb')
+        }, 60)
+      } 
     }, 100)
-    setTimeout(() => {
-      clearInterval(dementorSpellInterval)
-    }, 10000)
-    // if (dementorSpell >= 379) {
-    //   // clearInterval(dementorSpellInterval)
-    //   // setTimeout(() => {
-    //   //   cells[arrayDementorSpell].classList.remove('dementorSpell')
-    //   // }, 60)
   }
 
   let randomDementorSpells
@@ -460,13 +469,14 @@ function hogwartsGame() {
     document.querySelector('.easygrid').style.visibility = 'hidden'
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
+    document.querySelector('.voldemortlives').style.visibility = 'hidden'
+    document.querySelector('.voldemortlives').style.display = 'none'
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.score').style.transform = 'translate(-250px, -390px)'
     document.querySelector('.lives').style.transform = 'translate(200px, -500px)'
     flyHome()
     gameMusic.pause()
   }
-
 
   function flyHome() {
     const flyHomeButton = document.querySelector('.fly')
