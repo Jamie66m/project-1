@@ -5,7 +5,7 @@ function hogwartsGame() {
   const gridSize = width ** 2
   const cells = []
   let harry = 389
-  const voldemort = 209
+  let voldemort = 209
   const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
   let harryLives = 3
   let lordVolLives = 7
@@ -85,7 +85,7 @@ function hogwartsGame() {
     backgroundMusic.play()
   }
   window.addEventListener('load', homePage)
-	
+
   const bodyImageButtons1 = document.querySelectorAll('.bodyimagebutton')
   const body = document.querySelector('.body')
   for (const bodyImageButton2 of bodyImageButtons1) {
@@ -131,13 +131,13 @@ function hogwartsGame() {
   function gameStart() {
     easyGrid.style.position = 'absolute'
     for (let i = 0; i < width ** 2; i++) {
-      const cell = document.createElement('div') 
-      easyGrid.appendChild(cell) 
-      cells.push(cell)       
+      const cell = document.createElement('div')
+      easyGrid.appendChild(cell)
+      cells.push(cell)
     }
     cells[harry].classList.add('harry')
     dementors.forEach((e) => {
-      cells[e].classList.add('dementor')  
+      cells[e].classList.add('dementor')
     })
     loadDementors()
     dementorMove()
@@ -196,14 +196,13 @@ function hogwartsGame() {
     const dementorMoveInterval = setInterval(() => {
       setTimeout(() => {
         moveDementors()
-      }, 1250)
+      }, 1000)
       setTimeout(() => {
         moveDown()
-
-      }, 1750)
+      }, 1250)
       setTimeout(() => {
         moveLeft()
-      }, 2250)
+      }, 1500)
       for (let i = 0; i < dementors.length; i++) {
         if (dementors[i] >= 359) {
           clearInterval(dementorMoveInterval)
@@ -211,7 +210,7 @@ function hogwartsGame() {
           gameMusic.pause()
         }
       }
-    }, 2500)
+    }, 1750)
   }
 
   document.addEventListener('keydown', (event) => {
@@ -298,7 +297,7 @@ function hogwartsGame() {
         cells[allSpell].classList.remove('harryAllSpells')
         clearInterval(allInterval)
         voldemortLoseLife()
-      }  
+      }
     }, 50)
     setTimeout(() => {
       clearInterval(allInterval)
@@ -312,7 +311,7 @@ function hogwartsGame() {
     }, 925)
   }
 
-  const spells = [ 'sounds/stupefy.mp3', 
+  const spells = ['sounds/stupefy.mp3',
     'sounds/sectumsempra.mp3',
     'sounds/rictusempra.mp3',
     'sounds/reducto.mp3',
@@ -323,7 +322,7 @@ function hogwartsGame() {
     'sounds/diffindo.mp3',
     'sounds/araniaexumai.mp3'
   ]
-  let spellSound 
+  let spellSound
 
   function generateRandomNumber(max) {
     return Math.floor(Math.random() * max)
@@ -337,13 +336,13 @@ function hogwartsGame() {
       spellSound = new Audio()
     }
     spellSound.src = spellSrc
-    spellSound.volume = 0.5
+    spellSound.volume = 0.8
     spellSound.play()
   }
- 
+
   const dementorSpellArray = []
   let dementorSpellsCast = 0
-  let newDementorSpell 
+  let newDementorSpell
 
   function spellDementor() {
     const arrayDementorSpell = dementorSpellArray[dementorSpellsCast]
@@ -370,7 +369,7 @@ function hogwartsGame() {
         setTimeout(() => {
           cells[arrayDementorSpell].classList.remove('dementorSpell')
         }, 60)
-      } 
+      }
     }, 100)
   }
 
@@ -387,7 +386,7 @@ function hogwartsGame() {
 
   function defineRandomDementorSpell() {
     if (dementors.length === 0) {
-      return   
+      return
     }
     cells[randomDementorSpells + width].classList.add('dementorSpell')
     console.log(cells[randomDementorSpells + width])
@@ -395,7 +394,7 @@ function hogwartsGame() {
     spellDementor()
     dementorSpellsCast += 1
   }
-  
+
 
 
   function voldemortAppear() {
@@ -410,12 +409,56 @@ function hogwartsGame() {
     document.querySelector('.score').style.transform = 'translate(-200px, -460px)'
     document.querySelector('.lives').style.transform = 'translate(170px, -570px)'
     darkLordSpell()
+    moveVoldemort()
     gameMusic.pause()
     expectoPatronumSound.pause()
     voldemortAppearMusic.play()
   }
 
-  // NEED TO CREAT A VOLDEMORT MOVE FUNCTION
+  function moveVoldemort() {
+    const voldemortMoveInterval = setInterval(() => {
+      setTimeout(() => {
+        voldemortMoveRight()
+      }, 250)
+      setTimeout(() => {
+        voldemortMoveLeft()
+      }, 750)
+      setTimeout(() => {
+        voldemortMoveRight()
+      }, 1000)
+      // setTimeout(() => {
+      //   voldemortMoveLeft()
+      // }, 1500)
+      if (lordVolLives === 0) {
+        clearInterval(voldemortMoveInterval)
+        voldemortSpellSound.pause()
+        winGame()
+      } else if (harryLives === 0) {
+        clearInterval(voldemortMoveInterval)
+        voldemortSpellSound.pause()
+        loseGame()
+      }
+    }, 1000)
+  }
+
+  function voldemortMoveRight() {
+    cells[voldemort].classList.remove('voldemort')
+    voldemort += 1
+    cells[voldemort].classList.add('voldemort')
+  }
+
+  function voldemortMoveLeft() {
+    cells[voldemort].classList.remove('voldemort')
+    voldemort -= 1
+    cells[voldemort].classList.add('voldemort')
+  }
+
+  // function voldemortMoveDown() {
+  //   cells[voldemort].classList.remove('voldemort')
+  //   voldemort += 20
+  //   cells[voldemort].classList.add('voldemort')
+  // }
+
 
   const voldemortSpellsArray = []
   let voldemortSpellsCast = 0
@@ -443,7 +486,7 @@ function hogwartsGame() {
         setTimeout(() => {
           cells[voldemortMagicArray].classList.remove('voldemortSpell')
         }, 60)
-      } 
+      }
     }, 100)
   }
 
@@ -460,7 +503,9 @@ function hogwartsGame() {
 
   function defineDarkLordSpell() {
     if (lordVolLives === 0) {
-      return   
+      return
+    } else if (harryLives === 0) {
+      return
     }
     cells[darkLordSpells + width].classList.add('voldemortSpell')
     voldemortSpellsArray.push([darkLordSpells + width])
@@ -494,7 +539,7 @@ function hogwartsGame() {
       voldemortSpellSound.pause()
     }
   }
-  const voldemortHit = [ 'sounds/goingtodestroyyou.mp3', 
+  const voldemortHit = ['sounds/goingtodestroyyou.mp3',
     'sounds/goingtokillyou.mp3',
     'sounds/howtoduel.mp3',
     'sounds/introduceyou.mp3',
@@ -503,7 +548,7 @@ function hogwartsGame() {
     'sounds/pickupyourwand.mp3'
   ]
   let voldemortIsHit
-  
+
   function generateRandomVoldemortHit(max) {
     return Math.floor(Math.random() * max)
   }
@@ -544,8 +589,6 @@ function hogwartsGame() {
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.display = 'none'
-    const flyToHomePage = document.querySelectorAll('.fly')
-    flyToHomePage.classList.add('pulse')
     flyHome()
     voldemortAppearMusic.pause()
     harryHit.pause()
@@ -564,10 +607,10 @@ function hogwartsGame() {
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.score').style.transform = 'translate(-200px, -390px)'
     document.querySelector('.lives').style.transform = 'translate(170px, -500px)'
-    const flyToHomePage = document.querySelectorAll('.fly')
-    flyToHomePage.classList.add('pulse')
     flyHome()
+    voldemortSpellSound.pause()
     voldemortAppearMusic.pause()
+    harryHit.pause()
     hogwartsMarch.play()
   }
 
