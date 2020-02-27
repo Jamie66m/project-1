@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 
-.bodyimagebutton:hover {
+#easybutton:hover {
   transform: scale(1.1);
 }
 
