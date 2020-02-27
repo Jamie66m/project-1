@@ -8,23 +8,15 @@ function hogwartsGame() {
   const voldemort = 209
   const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
   let harryLives = 3
-  let lordVolLives = 3
+  let lordVolLives = 7
   // let score = 0
   let spellPosition
   let allSpellPosition
   const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 
-  // Add sounds for when - 1)You click the house crest to start the game 
-  // 2)When you win the game
-  // 3)When you lose the game
-  // 4)When you get hit by a spell
-  // 5)When the dementors get hit by a spell
-  // 6)When voldemort gets hit by a spell
-  // 7) Pause gamemusic when voldemort appears and add new music
-
   const backgroundMusic = new Audio()
   backgroundMusic.src = 'sounds/background.mp3'
-  backgroundMusic.volume = 0.1
+  backgroundMusic.volume = 0.2
   backgroundMusic.loop = 'loop'
 
   const mischief = new Audio()
@@ -38,7 +30,7 @@ function hogwartsGame() {
   const expectoPatronumSound = new Audio()
   expectoPatronumSound.src = 'sounds/expectopatronum.mp3'
   expectoPatronumSound.playbackRate = 1
-  expectoPatronumSound.volume = 0.05
+  expectoPatronumSound.volume = 0.1
 
   const gameMusic = new Audio()
   gameMusic.src = 'sounds/battleofhogwarts.mp3'
@@ -49,15 +41,28 @@ function hogwartsGame() {
   voldemortLaugh.src = 'sounds/voldemortlaugh.mp3'
 
   const voldemortAppearMusic = new Audio()
-  voldemortAppearMusic.src = 'sounds/game.mp3'
-  voldemortAppearMusic.volume = 1
+  voldemortAppearMusic.src = 'sounds/voldemortappear.mp3'
+  voldemortAppearMusic.volume = 0.5
   voldemortAppearMusic.loop = 'loop'
 
   const voldemortSpellSound = new Audio()
-  voldemortSpellSound.src = 'sounds/voldemortcrucio.mp3'
-  voldemortSpellSound.volume = 0.5
+  voldemortSpellSound.src = 'sounds/avadakedavra.mp3'
+  voldemortSpellSound.volume = 0.4
+  // voldemortSpellSound.loop = 'loop'
 
+  const harryHit = new Audio()
+  harryHit.src = 'sounds/harryhit.mp3'
+  harryHit.volume = 1
 
+  const hogwartsMarch = new Audio()
+  hogwartsMarch.src = 'sounds/hogwartsmarch.mp3'
+  hogwartsMarch.volume = 1
+  hogwartsMarch.loop = 'loop'
+
+  const hogwartsConquered = new Audio()
+  hogwartsConquered.src = 'sounds/procession.mp3'
+  hogwartsMarch.volume = 1
+  hogwartsMarch.loop = 'loop'
 
   function homePage() {
     document.querySelector('.body').style.visibility = 'visible'
@@ -191,21 +196,22 @@ function hogwartsGame() {
     const dementorMoveInterval = setInterval(() => {
       setTimeout(() => {
         moveDementors()
-      }, 1500)
+      }, 1250)
       setTimeout(() => {
         moveDown()
 
-      }, 2000)
+      }, 1750)
       setTimeout(() => {
         moveLeft()
-      }, 2500)
+      }, 2250)
       for (let i = 0; i < dementors.length; i++) {
         if (dementors[i] >= 359) {
           clearInterval(dementorMoveInterval)
           loseGame()
+          gameMusic.pause()
         }
       }
-    }, 3000)
+    }, 2500)
   }
 
   document.addEventListener('keydown', (event) => {
@@ -380,11 +386,17 @@ function hogwartsGame() {
   }
 
   function defineRandomDementorSpell() {
+    if (dementors.length === 0) {
+      return   
+    }
     cells[randomDementorSpells + width].classList.add('dementorSpell')
+    console.log(cells[randomDementorSpells + width])
     dementorSpellArray.push([randomDementorSpells + width])
     spellDementor()
     dementorSpellsCast += 1
   }
+  
+
 
   function voldemortAppear() {
     for (let i = 0; i < gridSize; i++) {
@@ -399,8 +411,8 @@ function hogwartsGame() {
     document.querySelector('.lives').style.transform = 'translate(170px, -570px)'
     darkLordSpell()
     gameMusic.pause()
+    expectoPatronumSound.pause()
     voldemortAppearMusic.play()
-    voldemortSpellSound.play()
   }
 
   // NEED TO CREAT A VOLDEMORT MOVE FUNCTION
@@ -440,35 +452,82 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 400)
+    }, 450)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }
   }
 
   function defineDarkLordSpell() {
+    if (lordVolLives === 0) {
+      return   
+    }
     cells[darkLordSpells + width].classList.add('voldemortSpell')
     voldemortSpellsArray.push([darkLordSpells + width])
     voldemortMagic()
     voldemortSpellsCast += 1
+    voldemortSpellSound.play()
   }
 
   function voldemortLoseLife() {
-    if (lordVolLives === 3) {
+    if (lordVolLives === 7) {
       lordVolLives -= 1
+      voldemortHitSound()
+    } else if (lordVolLives === 6) {
+      lordVolLives -= 1
+      voldemortHitSound()
+    } else if (lordVolLives === 5) {
+      lordVolLives -= 1
+      voldemortHitSound()
+    } else if (lordVolLives === 4) {
+      lordVolLives -= 1
+      voldemortHitSound()
+    } else if (lordVolLives === 3) {
+      lordVolLives -= 1
+      voldemortHitSound()
     } else if (lordVolLives === 2) {
       lordVolLives -= 1
+      voldemortHitSound()
     } else if (lordVolLives === 1) {
       lordVolLives -= 1
       winGame()
+      voldemortSpellSound.pause()
     }
   }
+  const voldemortHit = [ 'sounds/goingtodestroyyou.mp3', 
+    'sounds/goingtokillyou.mp3',
+    'sounds/howtoduel.mp3',
+    'sounds/introduceyou.mp3',
+    'sounds/lightleaveyoureyes.mp3',
+    'sounds/lookatme.mp3',
+    'sounds/pickupyourwand.mp3'
+  ]
+  let voldemortIsHit
+  
+  function generateRandomVoldemortHit(max) {
+    return Math.floor(Math.random() * max)
+  }
+  function voldemortHitSound() {
+    const x = generateRandomVoldemortHit(voldemortHit.length - 1)
+    const voldemortHitSrc = voldemortHit[x]
+    if (voldemortIsHit) {
+      voldemortIsHit.pause()
+    } else {
+      voldemortIsHit = new Audio()
+    }
+    voldemortIsHit.src = voldemortHitSrc
+    voldemortIsHit.volume = 1
+    voldemortIsHit.play()
+  }
+
 
   function harryLoseLife() {
     if (harryLives === 3) {
       harryLives -= 1
+      harryHit.play()
     } else if (harryLives === 2) {
       harryLives -= 1
+      harryHit.play()
     } else if (harryLives === 1) {
       harryLives -= 1
       loseGame()
@@ -481,12 +540,18 @@ function hogwartsGame() {
     document.querySelector('#harryloses').style.visibility = 'visible'
     document.querySelector('#harryloses').style.display = 'block'
     document.querySelector('.fly').style.visibility = 'visible'
-    document.querySelector('.score').style.transform = 'translate(-250px, -400px)'
+    document.querySelector('.score').style.transform = 'translate(-200px, -390px)'
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.display = 'none'
+    const flyToHomePage = document.querySelectorAll('.fly')
+    flyToHomePage.classList.add('pulse')
     flyHome()
     voldemortAppearMusic.pause()
+    harryHit.pause()
+    gameMusic.pause()
+    voldemortSpellSound.pause()
+    hogwartsConquered.play()
   }
 
   // Fix this to look better
@@ -499,8 +564,11 @@ function hogwartsGame() {
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.score').style.transform = 'translate(-200px, -390px)'
     document.querySelector('.lives').style.transform = 'translate(170px, -500px)'
+    const flyToHomePage = document.querySelectorAll('.fly')
+    flyToHomePage.classList.add('pulse')
     flyHome()
     voldemortAppearMusic.pause()
+    hogwartsMarch.play()
   }
 
   function flyHome() {
