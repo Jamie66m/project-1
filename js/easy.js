@@ -106,26 +106,6 @@ function hogwartsGame() {
     document.querySelector('.easygrid').style.visibility = 'visible'
     gameStart()
   })
-
-  // const bodyImageButtons1 = document.querySelectorAll('.bodyimagebutton')
-  // const body = document.querySelector('.body')
-  // for (const bodyImageButton2 of bodyImageButtons1) {
-  //   bodyImageButton2.addEventListener('mouseover', () => {
-  //     bodyImageButton2.classList.add('buttonhover')
-  //   })
-  //   bodyImageButton2.addEventListener('mouseout', () => {
-  //     bodyImageButton2.classList.remove('buttonhover')
-  //   })
-  //   bodyImageButton2.addEventListener('click', () => {
-  //     document.body.style.visibility = 'hidden'
-  //     document.querySelector('.title').style.visibility = 'hidden'
-  //     document.querySelector('.divlevels').style.visibility = 'hidden'
-  //     document.querySelector('.bodyimages').style.visibility = 'hidden'
-  //     body.classList.add('mainimg')
-  //     document.querySelector('.easygrid').style.visibility = 'visible'
-  //     gameStart()
-  //   })
-  // }
   const instructions = document.querySelector('.instructions')
   instructions.addEventListener('mouseover', () => {
     document.querySelector('.divinstructions').style.display = 'block'

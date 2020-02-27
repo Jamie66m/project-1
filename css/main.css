@@ -35,6 +35,14 @@
   transform: scale(1.1);
 }
 
+#mediumbutton:hover {
+  transform: scale(1.1);
+}
+
+#hardbutton:hover {
+  transform: scale(1.1);
+}
+
 .mainimg {
   height: 100vh;
   background-image: url('https://static1.thegamerimages.com/wordpress/wp-content/uploads/2019/01/Harry-Potter-Voldemort.jpg');
