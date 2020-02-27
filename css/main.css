@@ -108,6 +108,10 @@
 
 h4 {
   color: #ff2323;
+  margin-top: -5px;
+}
+.gameplay {
+  margin-top: -5px;
 }
 
 .divlevels {
@@ -132,7 +136,7 @@ h4 {
   font-family: 'HarryPotter', sans-serif;
   letter-spacing: 2px;
   font-size: 30px;
-  transform: translate(-230px, -490px);
+  transform: translate(-200px, -515px);
 }
 
 .lives {
@@ -142,7 +146,7 @@ h4 {
   font-family: 'HarryPotter', sans-serif;
   letter-spacing: 2px;
   font-size: 30px;
-  transform: translate(200px, -600px);
+  transform: translate(170px, -625px);
 }
 
 .voldemortlives {
@@ -181,7 +185,7 @@ h4 {
 
 
 .fly {
-transform: translate(100px, -328px);
+transform: translate(0px, -300px);
 cursor: pointer;
 }
 
