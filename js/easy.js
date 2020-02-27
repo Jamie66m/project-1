@@ -17,19 +17,6 @@ function hogwartsGame() {
   const scoreCount = document.querySelector('.score')
   const volLivesCount = document.querySelector('.voldemortlives')
 
-  const backgroundMusic = new Audio()
-  backgroundMusic.src = 'sounds/background.mp3'
-  backgroundMusic.volume = 0.2
-  backgroundMusic.loop = 'loop'
-
-  const mischief = new Audio()
-  mischief.src = 'sounds/mischief.mp3'
-  mischief.volume = 0.2
-
-  const maraudersMap = new Audio()
-  maraudersMap.src = 'sounds/maraudersmap.mp3'
-  maraudersMap.volume = 0.2
-
   const expectoPatronumSound = new Audio()
   expectoPatronumSound.src = 'sounds/expectopatronum.mp3'
   expectoPatronumSound.playbackRate = 1
@@ -68,66 +55,19 @@ function hogwartsGame() {
   hogwartsMarch.loop = 'loop'
 
   function homePage() {
-    document.querySelector('.body').style.visibility = 'visible'
-    document.querySelector('.easygrid').style.visibility = 'hidden'
-    document.querySelector('.lives').style.visibility = 'hidden'
+    document.querySelector('.easygrid').style.visibility = 'visible'
+    document.querySelector('.lives').style.visibility = 'visible'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.display = 'none'
-    document.querySelector('.score').style.visibility = 'hidden'
+    document.querySelector('.score').style.visibility = 'visible'
     document.querySelector('#harrywins').style.visibility = 'hidden'
     document.querySelector('#harrywins').style.display = 'none'
     document.querySelector('#harryloses').style.visibility = 'hidden'
     document.querySelector('#harryloses').style.display = 'none'
-    document.querySelector('.divinstructions').style.display = 'none'
-    document.querySelector('.divinstructions').style.visibility = 'hidden'
     document.querySelector('.fly').style.visibility = 'hidden'
-    const bodyImageButtons = document.querySelectorAll('.bodyimagebutton')
-    for (const bodyImageButton of bodyImageButtons) {
-      bodyImageButton.classList.add('pulse')
-    }
-    backgroundMusic.play()
+    gameStart()
   }
   window.addEventListener('load', homePage)
-
-  const easyButton = document.querySelector('#easybutton')
-  const body = document.querySelector('.body')
-  easyButton.addEventListener('mouseover', () => {
-    easyButton.classList.add('buttonhover')
-  })
-  easyButton.addEventListener('mouseout', () => {
-    easyButton.classList.remove('buttonhover')
-  })
-  easyButton.addEventListener('click', () => {
-    document.body.style.visibility = 'hidden'
-    document.querySelector('.title').style.visibility = 'hidden'
-    document.querySelector('.divlevels').style.visibility = 'hidden'
-    document.querySelector('.bodyimages').style.visibility = 'hidden'
-    body.classList.add('mainimg')
-    document.querySelector('.easygrid').style.visibility = 'visible'
-    gameStart()
-  })
-  const instructions = document.querySelector('.instructions')
-  instructions.addEventListener('mouseover', () => {
-    document.querySelector('.divinstructions').style.display = 'block'
-    document.querySelector('.divinstructions').style.visibility = 'visible'
-    document.querySelector('.title').style.visibility = 'hidden'
-    document.querySelector('.divlevels').style.visibility = 'hidden'
-    document.querySelector('.bodyimages').style.visibility = 'hidden'
-    document.querySelector('.bodyimages').style.display = 'none'
-    maraudersMap.play()
-    backgroundMusic.pause()
-  })
-  const exitInstructions = document.querySelector('.exit')
-  exitInstructions.addEventListener('click', () => {
-    document.querySelector('.divinstructions').style.display = 'none'
-    document.querySelector('.title').style.visibility = 'visible'
-    document.querySelector('.divlevels').style.visibility = 'visible'
-    document.querySelector('.bodyimages').style.visibility = 'visible'
-    document.querySelector('.bodyimages').style.display = 'block'
-    backgroundMusic.play()
-    mischief.play()
-    maraudersMap.pause()
-  })
 
   function gameStart() {
     easyGrid.style.position = 'absolute'
@@ -143,11 +83,8 @@ function hogwartsGame() {
     loadDementors()
     dementorMove()
     randomDementorSpell()
-    document.querySelector('.score').style.visibility = 'visible'
-    document.querySelector('.lives').style.visibility = 'visible'
     livesCount.innerHTML = `Harry Lives: ${harryLives}`
     scoreCount.innerHTML = `Score: ${score}`
-    backgroundMusic.pause()
     gameMusic.play()
   }
 
@@ -418,10 +355,7 @@ function hogwartsGame() {
     }
     document.querySelector('.voldemortlives').style.visibility = 'visible'
     document.querySelector('.voldemortlives').style.display = 'block'
-    document.querySelector('.voldemortlives').style.transform = 'translateY(-35px)'
     volLivesCount.innerHTML = `Voldemort Lives: ${lordVolLives}`
-    document.querySelector('.score').style.transform = 'translate(-200px, -460px)'
-    document.querySelector('.lives').style.transform = 'translate(170px, -570px)'
     darkLordSpell()
     moveVoldemort()
     gameMusic.pause()
@@ -611,7 +545,7 @@ function hogwartsGame() {
     document.querySelector('#harryloses').style.visibility = 'visible'
     document.querySelector('#harryloses').style.display = 'block'
     document.querySelector('.fly').style.visibility = 'visible'
-    document.querySelector('.score').style.transform = 'translate(-200px, -390px)'
+    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.display = 'none'
@@ -631,8 +565,6 @@ function hogwartsGame() {
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.display = 'none'
     document.querySelector('.fly').style.visibility = 'visible'
-    document.querySelector('.score').style.transform = 'translate(-200px, -390px)'
-    document.querySelector('.lives').style.transform = 'translate(170px, -500px)'
     flyHome()
     voldemortSpellSound.pause()
     voldemortAppearMusic.pause()
