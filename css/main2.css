@@ -21,7 +21,7 @@
 header {
   display: flex;
   flex-direction: row;
-  transform: translate(0px, -280px);
+  transform: translate(0px, -232px);
 }
 
 .score {
@@ -50,6 +50,7 @@ header {
   -webkit-text-fill-color: transparent;
   letter-spacing: 2px;
   font-size: 30px;
+  transform: translateY(230px);
 }
 
 #harrywins {

@@ -58,7 +58,6 @@ function hogwartsGame() {
     document.querySelector('.easygrid').style.visibility = 'visible'
     document.querySelector('.lives').style.visibility = 'visible'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
-    document.querySelector('.voldemortlives').style.display = 'none'
     document.querySelector('.score').style.visibility = 'visible'
     document.querySelector('#harrywins').style.visibility = 'hidden'
     document.querySelector('#harrywins').style.display = 'none'
@@ -354,7 +353,6 @@ function hogwartsGame() {
       }
     }
     document.querySelector('.voldemortlives').style.visibility = 'visible'
-    document.querySelector('.voldemortlives').style.display = 'block'
     volLivesCount.innerHTML = `Voldemort Lives: ${lordVolLives}`
     darkLordSpell()
     moveVoldemort()
@@ -548,7 +546,6 @@ function hogwartsGame() {
     document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
-    document.querySelector('.voldemortlives').style.display = 'none'
     flyHome()
     voldemortAppearMusic.pause()
     harryHit.pause()
@@ -563,7 +560,6 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
-    document.querySelector('.voldemortlives').style.display = 'none'
     document.querySelector('.fly').style.visibility = 'visible'
     flyHome()
     voldemortSpellSound.pause()
