@@ -8,7 +8,7 @@ function hogwartsGame() {
   let voldemort = 209
   const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
   let harryLives = 3
-  let lordVolLives = 7
+  let lordVolLives = 5
   let score = 0
   let spellPosition
   let allSpellPosition
@@ -309,6 +309,7 @@ function hogwartsGame() {
       arrayDementorSpell.push(newDementorSpell)
       if (cells[arrayDementorSpell].classList.contains('harry')) {
         harryLoseLife()
+        console.log(cells[arrayDementorSpell])
       }
       if (newDementorSpell >= 379) {
         clearInterval(dementorSpellInterval)
@@ -371,7 +372,7 @@ function hogwartsGame() {
       }, 1000)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 1500)
+      }, 1250)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -380,11 +381,11 @@ function hogwartsGame() {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
         loseGame()
-      } else if (voldemort >= 379) {
+      } else if (voldemort >= 359) {
         clearInterval(voldemortMoveInterval)
         loseGame()
       }
-    }, 2000)
+    }, 1750)
   }
 
   function voldemortMoveRight() {
@@ -420,6 +421,7 @@ function hogwartsGame() {
       voldemortMagicArray.push(voldemortSpell)
       if (cells[voldemortMagicArray].classList.contains('harry')) {
         harryLoseLife()
+        console.log(cells[voldemortMagicArray])
       }
       if (voldemortSpell >= 379) {
         clearInterval(voldemortMagicInterval)
@@ -427,7 +429,7 @@ function hogwartsGame() {
           cells[voldemortMagicArray].classList.remove('voldemortSpell')
         }, 60)
       }
-    }, 150)
+    }, 100)
   }
 
   let darkLordSpells
@@ -435,7 +437,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 550)
+    }, 500)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }
@@ -448,6 +450,7 @@ function hogwartsGame() {
       return
     }
     cells[darkLordSpells + width].classList.add('voldemortSpell')
+    console.log(cells[darkLordSpells + width])
     voldemortSpellsArray.push([darkLordSpells + width])
     voldemortMagic()
     voldemortSpellsCast += 1
@@ -561,6 +564,8 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
+    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
+    document.querySelector('.lives').style.transform = 'translate(100px, 150px)'
     document.querySelector('.fly').style.visibility = 'visible'
     flyHome()
     voldemortSpellSound.pause()

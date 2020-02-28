@@ -5,8 +5,8 @@ function hogwartsGame() {
   const gridSize = width ** 2
   const cells = []
   let harry = 389
-  let voldemort = 109
-  const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
+  let voldemort = 209
+  const dementors = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
   let harryLives = 3
   let lordVolLives = 7
   let score = 0
@@ -135,20 +135,20 @@ function hogwartsGame() {
     const dementorMoveInterval = setInterval(() => {
       setTimeout(() => {
         moveDementors()
-      }, 1000)
+      }, 750)
       setTimeout(() => {
         moveDown()
-      }, 1500)
+      }, 1250)
       setTimeout(() => {
         moveLeft()
-      }, 2000)
+      }, 1750)
       for (let i = 0; i < dementors.length; i++) {
         if (dementors[i] >= 359) {
           clearInterval(dementorMoveInterval)
           loseGame()
         }
       }
-    }, 2500)
+    }, 2000)
   }
 
   document.addEventListener('keydown', (event) => {
@@ -316,7 +316,7 @@ function hogwartsGame() {
           cells[arrayDementorSpell].classList.remove('dementorSpell')
         }, 60)
       }
-    }, 100)
+    }, 90)
   }
 
   let randomDementorSpells
@@ -324,7 +324,7 @@ function hogwartsGame() {
     const randomDementorSpellInterval = setInterval(() => {
       randomDementorSpells = dementors[Math.floor(Math.random() * dementors.length)]
       defineRandomDementorSpell()
-    }, 500)
+    }, 450)
     if (dementors.length === 0) {
       clearInterval(randomDementorSpellInterval)
     }
@@ -365,13 +365,19 @@ function hogwartsGame() {
     const voldemortMoveInterval = setInterval(() => {
       setTimeout(() => {
         voldemortMoveRight()
-      }, 250)
+      }, 200)
       setTimeout(() => {
         voldemortMoveLeft()
-      }, 500)
+      }, 300)
       setTimeout(() => {
         voldemortMoveRight()
+      }, 500)
+      setTimeout(() => {
+        voldemortMoveLeft()
       }, 750)
+      setTimeout(() => {
+        voldemortMoveRight()
+      }, 950)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -427,7 +433,7 @@ function hogwartsGame() {
           cells[voldemortMagicArray].classList.remove('voldemortSpell')
         }, 60)
       }
-    }, 100)
+    }, 90)
   }
 
   let darkLordSpells
@@ -435,7 +441,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 500)
+    }, 400)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }
@@ -535,6 +541,7 @@ function hogwartsGame() {
       livesCount.innerHTML = `Harry Lives: ${harryLives}`
       loseGame()
     }
+    console.log(harryLives)
   }
 
   // Fix this to look better
@@ -560,6 +567,8 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
+    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
+    document.querySelector('.lives').style.transform = 'translate(100px, 150px)'
     document.querySelector('.fly').style.visibility = 'visible'
     flyHome()
     voldemortSpellSound.pause()
