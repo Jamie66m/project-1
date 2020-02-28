@@ -64,6 +64,8 @@ function hogwartsGame() {
     document.querySelector('#harryloses').style.visibility = 'hidden'
     document.querySelector('#harryloses').style.display = 'none'
     document.querySelector('.fly').style.visibility = 'hidden'
+    document.querySelector('.goldensnitch').style.visibility = 'hidden'
+    document.querySelector('.goldensnitch').style.display = 'none'
     gameStart()
   }
   window.addEventListener('load', homePage)
@@ -395,7 +397,7 @@ function hogwartsGame() {
 
   function voldemortMoveLeft() {
     cells[voldemort].classList.remove('voldemort')
-    voldemort -= 1
+    voldemort -= 2
     cells[voldemort].classList.add('voldemort')
   }
 
@@ -427,7 +429,7 @@ function hogwartsGame() {
           cells[voldemortMagicArray].classList.remove('voldemortSpell')
         }, 60)
       }
-    }, 100)
+    }, 90)
   }
 
   let darkLordSpells
@@ -435,7 +437,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 400)
+    }, 450)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }
@@ -544,6 +546,8 @@ function hogwartsGame() {
     document.querySelector('#harryloses').style.visibility = 'visible'
     document.querySelector('#harryloses').style.display = 'block'
     document.querySelector('.fly').style.visibility = 'visible'
+    document.querySelector('.goldensnitch').style.visibility = 'visible'
+    document.querySelector('.goldensnitch').style.display = 'block'
     document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
@@ -564,6 +568,8 @@ function hogwartsGame() {
     document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
     document.querySelector('.lives').style.transform = 'translate(100px, 150px)'
     document.querySelector('.fly').style.visibility = 'visible'
+    document.querySelector('.goldensnitch').style.visibility = 'visible'
+    document.querySelector('.goldensnitch').style.display = 'block'
     flyHome()
     voldemortSpellSound.pause()
     voldemortAppearMusic.pause()
