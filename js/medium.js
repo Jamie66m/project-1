@@ -66,6 +66,8 @@ function hogwartsGame() {
     document.querySelector('.fly').style.visibility = 'hidden'
     document.querySelector('.goldensnitch').style.visibility = 'hidden'
     document.querySelector('.goldensnitch').style.display = 'none'
+    document.querySelector('.homeorrestart').style.visibility = 'hidden'
+    document.querySelector('.homeorrestart').style.display = 'none'
     gameStart()
   }
   window.addEventListener('load', homePage)
@@ -548,9 +550,11 @@ function hogwartsGame() {
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.display = 'block'
-    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
+    document.querySelector('.score').style.transform = 'translate(-50px, 200px)'
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
+    document.querySelector('.homeorrestart').style.visibility = 'visible'
+    document.querySelector('.homeorrestart').style.display = 'block'
     flyHome()
     voldemortAppearMusic.pause()
     harryHit.pause()
@@ -565,11 +569,13 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
-    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
-    document.querySelector('.lives').style.transform = 'translate(100px, 150px)'
+    document.querySelector('.score').style.transform = 'translate(-50px, 200px)'
+    document.querySelector('.lives').style.transform = 'translate(100px, 200px)'
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.display = 'block'
+    document.querySelector('.homeorrestart').style.visibility = 'visible'
+    document.querySelector('.homeorrestart').style.display = 'block'
     flyHome()
     voldemortSpellSound.pause()
     voldemortAppearMusic.pause()

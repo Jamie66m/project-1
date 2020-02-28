@@ -5,7 +5,7 @@ function hogwartsGame() {
   const gridSize = width ** 2
   const cells = []
   let harry = 389
-  let voldemort = 249
+  let voldemort = 229
   const dementors = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
   let harryLives = 3
   let lordVolLives = 7
@@ -66,6 +66,8 @@ function hogwartsGame() {
     document.querySelector('.fly').style.visibility = 'hidden'
     document.querySelector('.goldensnitch').style.visibility = 'hidden'
     document.querySelector('.goldensnitch').style.display = 'none'
+    document.querySelector('.homeorrestart').style.visibility = 'hidden'
+    document.querySelector('.homeorrestart').style.display = 'none'
     gameStart()
   }
   window.addEventListener('load', homePage)
@@ -370,19 +372,19 @@ function hogwartsGame() {
       }, 200)
       setTimeout(() => {
         voldemortMoveLeft()
-      }, 300)
+      }, 400)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 500)
+      }, 550)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 650)
-      setTimeout(() => {
-        voldemortMoveLeft()
       }, 750)
       setTimeout(() => {
+        voldemortMoveLeft()
+      }, 1000)
+      setTimeout(() => {
         voldemortMoveRight()
-      }, 950)
+      }, 1250)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -395,7 +397,7 @@ function hogwartsGame() {
         clearInterval(voldemortMoveInterval)
         loseGame()
       }
-    }, 1000)
+    }, 1500)
   }
 
   function voldemortMoveRight() {
@@ -557,9 +559,11 @@ function hogwartsGame() {
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.display = 'block'
-    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
+    document.querySelector('.score').style.transform = 'translate(-50px, 200px)'
     document.querySelector('.lives').style.visibility = 'hidden'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
+    document.querySelector('.homeorrestart').style.visibility = 'visible'
+    document.querySelector('.homeorrestart').style.display = 'block'
     flyHome()
     voldemortAppearMusic.pause()
     harryHit.pause()
@@ -574,11 +578,13 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.visibility = 'visible'
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
-    document.querySelector('.score').style.transform = 'translate(-50px, 150px)'
-    document.querySelector('.lives').style.transform = 'translate(100px, 150px)'
+    document.querySelector('.score').style.transform = 'translate(-50px, 200px)'
+    document.querySelector('.lives').style.transform = 'translate(100px, 200px)'
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.display = 'block'
+    document.querySelector('.homeorrestart').style.visibility = 'visible'
+    document.querySelector('.homeorrestart').style.display = 'block'
     flyHome()
     voldemortSpellSound.pause()
     voldemortAppearMusic.pause()

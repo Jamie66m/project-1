@@ -370,13 +370,13 @@ function hogwartsGame() {
     const voldemortMoveInterval = setInterval(() => {
       setTimeout(() => {
         voldemortMoveRight()
-      }, 250)
+      }, 350)
       setTimeout(() => {
         voldemortMoveLeft()
-      }, 400)
+      }, 500)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 700)
+      }, 800)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -573,7 +573,7 @@ function hogwartsGame() {
     document.querySelector('#harrywins').style.display = 'block'
     document.querySelector('.voldemortlives').style.visibility = 'hidden'
     document.querySelector('.score').style.transform = 'translate(-50px, 200px)'
-    document.querySelector('.lives').style.transform = 'translate(100px, 150px)'
+    document.querySelector('.lives').style.transform = 'translate(100px, 200px)'
     document.querySelector('.fly').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.visibility = 'visible'
     document.querySelector('.goldensnitch').style.display = 'block'
