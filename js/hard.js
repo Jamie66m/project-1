@@ -440,7 +440,7 @@ function hogwartsGame() {
           cells[voldemortMagicArray].classList.remove('voldemortSpell')
         }, 60)
       }
-    }, 90)
+    }, 85)
   }
 
   let darkLordSpells
@@ -448,7 +448,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 400)
+    }, 300)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }

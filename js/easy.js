@@ -5,7 +5,7 @@ function hogwartsGame() {
   const gridSize = width ** 2
   const cells = []
   let harry = 389
-  let voldemort = 209
+  let voldemort = 229
   const dementors = [43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
   let harryLives = 3
   let lordVolLives = 5
@@ -321,7 +321,7 @@ function hogwartsGame() {
           cells[arrayDementorSpell].classList.remove('dementorSpell')
         }, 60)
       }
-    }, 150)
+    }, 100)
   }
 
   let randomDementorSpells
@@ -370,13 +370,13 @@ function hogwartsGame() {
     const voldemortMoveInterval = setInterval(() => {
       setTimeout(() => {
         voldemortMoveRight()
-      }, 350)
+      }, 400)
       setTimeout(() => {
         voldemortMoveLeft()
-      }, 500)
+      }, 800)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 800)
+      }, 1200)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -389,7 +389,7 @@ function hogwartsGame() {
         clearInterval(voldemortMoveInterval)
         loseGame()
       }
-    }, 1000)
+    }, 1500)
   }
 
   function voldemortMoveRight() {
@@ -400,7 +400,7 @@ function hogwartsGame() {
 
   function voldemortMoveLeft() {
     cells[voldemort].classList.remove('voldemort')
-    voldemort -= 1
+    voldemort -= 2
     cells[voldemort].classList.add('voldemort')
   }
 
