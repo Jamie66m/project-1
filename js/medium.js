@@ -375,7 +375,7 @@ function hogwartsGame() {
       }, 500)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 950)
+      }, 850)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -439,7 +439,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 450)
+    }, 333)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }

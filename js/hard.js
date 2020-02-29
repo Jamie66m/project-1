@@ -369,22 +369,22 @@ function hogwartsGame() {
     const voldemortMoveInterval = setInterval(() => {
       setTimeout(() => {
         voldemortMoveRight()
-      }, 200)
+      }, 100)
       setTimeout(() => {
         voldemortMoveLeft()
-      }, 400)
+      }, 200)
       setTimeout(() => {
         voldemortMoveRight()
+      }, 450)
+      setTimeout(() => {
+        voldemortMoveRight()
+      }, 500)
+      setTimeout(() => {
+        voldemortMoveLeft()
       }, 550)
       setTimeout(() => {
         voldemortMoveRight()
-      }, 750)
-      setTimeout(() => {
-        voldemortMoveLeft()
-      }, 1000)
-      setTimeout(() => {
-        voldemortMoveRight()
-      }, 1250)
+      }, 850)
       if (lordVolLives === 0) {
         clearInterval(voldemortMoveInterval)
         voldemortSpellSound.pause()
@@ -397,7 +397,7 @@ function hogwartsGame() {
         clearInterval(voldemortMoveInterval)
         loseGame()
       }
-    }, 1500)
+    }, 1000)
   }
 
   function voldemortMoveRight() {
@@ -440,7 +440,7 @@ function hogwartsGame() {
           cells[voldemortMagicArray].classList.remove('voldemortSpell')
         }, 60)
       }
-    }, 85)
+    }, 90)
   }
 
   let darkLordSpells
@@ -448,7 +448,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 300)
+    }, 200)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }
