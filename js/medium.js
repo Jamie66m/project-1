@@ -439,7 +439,7 @@ function hogwartsGame() {
     const darkLordSpellInterval = setInterval(() => {
       darkLordSpells = voldemort
       defineDarkLordSpell()
-    }, 333)
+    }, 300)
     if (lordVolLives === 0) {
       clearInterval(darkLordSpellInterval)
     }
