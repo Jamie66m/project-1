@@ -20,7 +20,7 @@ function hogwartsGame() {
   const expectoPatronumSound = new Audio()
   expectoPatronumSound.src = 'sounds/expectopatronum.mp3'
   expectoPatronumSound.playbackRate = 1
-  expectoPatronumSound.volume = 0.1
+  expectoPatronumSound.volume = 0.11
 
   const gameMusic = new Audio()
   gameMusic.src = 'sounds/battleofhogwarts.mp3'
