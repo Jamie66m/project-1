@@ -44,10 +44,6 @@ The aim of the game is to move Harry left or right protecting Hogwarts by castin
 
 My approach to creating the game was similar to how an author would write a book. I decided I want to create the beginning of the game (the homepage) first, then the game and then the end. The reason I did this is because I wanted to picture the journey of the user through the game and this definitely helped when adding features such as music, font-style and the animations. 
 
-- Homepage
-  - Levels pulsating
-  - Instructions 
-
 ### Homepage
 
 As mentioned above I decided to tackle the Homepage first. I really wanted to create a page where the user (especially Harry Potter fans) immediately felt like they had entered the Harry Potter world and the game was to protect Hogwarts. Therefore, the dementors invading Hogwarts background image, replicating the Harry Potter font-style, using the Harry Potter theme tune and utilising the Hogwarts Crest to display the levels definitely does bring the game to life.
@@ -96,7 +92,23 @@ animation: pulse 3s infinite;
 }
 ```
 
+The screenshot of the instructions below indicates my first use of an Event Listener in the project and changing the DOM. I used the <strong>mouseover Event Listener</strong> to make the instructions appear and then used the <strong>click Event Listener</strong> to remove the instructions. When these event listeners run I am also pausing and adding sound effects.
+
 ![](./images/HIInstructions.jpg)
+
+```js
+  const instructions = document.querySelector('.instructions')
+  instructions.addEventListener('mouseover', () => {
+    document.querySelector('.divinstructions').style.display = 'block'
+    document.querySelector('.divinstructions').style.visibility = 'visible'
+    document.querySelector('.title').style.visibility = 'hidden'
+    document.querySelector('.divlevels').style.visibility = 'hidden'
+    document.querySelector('.bodyimages').style.visibility = 'hidden'
+    document.querySelector('.bodyimages').style.display = 'none'
+    maraudersMap.play()
+    backgroundMusic.pause()
+  })
+```
 
 
 - Variables
