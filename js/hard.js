@@ -80,7 +80,7 @@ function hogwartsGame() {
       cells.push(cell)
     }
     cells[harry].classList.add('harry')
-    dementors.forEach((e) => {
+    dementors.forEach(e => {
       cells[e].classList.add('dementor')
     })
     loadDementors()

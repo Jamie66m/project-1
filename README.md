@@ -55,7 +55,7 @@ There are two core features to the homepage that I implemented in order that the
 
 __Hogwarts Crest & Instructions__
 
-When the homepage loads the class <strong>pulse</strong> from the <strong>animate.css</strong> file is added to the class <strong>bodyimagebutton</strong>. The Hogwarts crests also scale when you hover over them. 
+When the homepage loads the class <strong>pulse</strong> from the <strong>animate.css</strong> file is added to the class <strong>bodyimagebutton</strong>. The Hogwarts Crests also scale when you hover over them. 
 
 ```js
   function homePage() {
@@ -92,7 +92,7 @@ animation: pulse 3s infinite;
 }
 ```
 
-The screenshot of the instructions below indicates my first use of an Event Listener in the project and changing the DOM. I used the <strong>mouseover Event Listener</strong> to make the instructions appear and then used the <strong>click Event Listener</strong> to remove the instructions. When these event listeners run I am also pausing and adding sound effects.
+The screenshot of the instructions below indicates my first use of an Event Listener in the project and changing the DOM. I used the <strong>mouseover Event Listener</strong> to make the instructions appear and then used the <strong>click Event Listener</strong> to remove the instructions. When these event listeners run I am also pausing and adding sound effects that are relatable to what the user is currently experiencing.
 
 ![](./images/HIInstructions.jpg)
 
@@ -111,11 +111,64 @@ The screenshot of the instructions below indicates my first use of an Event List
 ```
 
 
-- Variables
-- Grid
+### The Game
+
+For the actual game itself I wanted to change the visualisation and it's intensity in order to create a feeling of battle and this was done with a change of music and background image. 
+
+The game would start when you clicked on one of the Hogwarts Crests and this would render a new index.html depending on what level you chose. When the page renders the grid is created and the game starts.
+
+<strong>Variables</strong>
+
+It was important that I knew what variables I would need from the start as this definitely helped when writing some of the logic and the functionality.
+
+```js
+  const width = 20
+  const easyGrid = document.querySelector('.easygrid')
+  const gridSize = width ** 2
+  const cells = []
+  let harry = 389
+  let voldemort = 229
+  const dementors = [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
+  let harryLives = 3
+  let lordVolLives = 7
+  let score = 0
+  let spellPosition
+  let allSpellPosition
+  const gridTopRow = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  const livesCount = document.querySelector('.lives')
+  const scoreCount = document.querySelector('.score')
+  const volLivesCount = document.querySelector('.voldemortlives')
+```
+<strong>Grid</strong>
   - Adding Harry to the Grid
   - Adding Dementors to the Grid
   - Adding Voldemort to the Grid
+
+The game is built using a grid with the dimensions 20 x 20. The grid was created using CSS and JavaScript. Using a for loop I appended the HTML divs as children to the grid and they were also pushed to the cells array. I used flex-wrap and the correct cell dimensions to ensure that the entire grid had cells of equall size.
+
+```js
+easyGrid.style.position = 'absolute'
+    for (let i = 0; i < width ** 2; i++) {
+      const cell = document.createElement('div')
+      easyGrid.appendChild(cell)
+      cells.push(cell)
+    }
+``` 
+
+Adding Harry and the dementors to the grid was realitvely straightforwarded. For Harry I assigned the class 'harry' to a single index from the cells array and for the dementors I used a for loop to add the class 'dementors' to an array of indicies from the cells array. For each level I added an extra row.
+
+
+```js
+  function loadDementors() {
+    for (let i = 0; i < gridSize; i++) {
+      if (dementors.includes(i)) {
+        cells[i].classList.add('dementors')
+      }
+    }
+  }
+```
+![](./images/HIDementors.jpg)
+
 - Harry Movement
 - Harry Spells
   - Harry Spell Expecto Patronum against Dementors
@@ -170,6 +223,8 @@ The screenshot of the instructions below indicates my first use of an Event List
 
   - I wanted to have the dementors moving to the wall of the grid, then down the grid by one row and then move in the opposite direction to the other wall. However I struggled with the logic and functionality of this and therefore stuck to using set intervals and timeouts.
   - Potentially spent to much time focusing on the design on certain components of the game and could have introduced extra features which are mentioned below.
+  - Should have planned to incorporate levels at the beginning as I could have avoided making so many last minute changes.
+  - Getting the dementors spells to fire from the front row.
 
 ## Future features
  -  If the spells collide then they are removed.
@@ -177,6 +232,7 @@ The screenshot of the instructions below indicates my first use of an Event List
  -  Be able to block spells
  -  Make the game mobile
  -  Make Harry's and Voldemort's movement fluid across the grid
+ -  Scorebored feature
 
 
 ## Key learning areas
