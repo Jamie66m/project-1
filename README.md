@@ -169,6 +169,133 @@ Adding Harry and the dementors to the grid was realitvely straightforwarded. For
 ```
 ![](./images/HIDementors.jpg)
 
+### Character Movement
+
+<strong>Harry</strong>
+
+I decided to focus on Harry's movement first as I new that a lot of the same principles would then apply to getting the Dementors and Voldemort to move.
+
+```js 
+if (event.key === 'ArrowRight') {
+  if (harry === cells.length - 1) {
+    return
+  }
+  cells[harry].classList.remove('harry')
+  harry += 1
+  cells[harry].classList.add('harry')
+} else if (event.key === 'ArrowLeft') {
+  if (harry === 380) {
+    return
+  }
+  cells[harry].classList.remove('harry')
+  harry -= 1
+  cells[harry].classList.add('harry')
+```
+
+To move harry from one cell to the other I had to remove the class of harry and then re-add the class to the new cell that harry was on. We would again have to follow the same principle of adding harry to the grid by passing the `harry` variable into the cells array. The more important thing to note here though is for when Harry reached the wall of the grid. In order for the game to not break I had to add checks for both walls. I only used `ArrowRight` and `ArrowLeft` as I didn't want to give Harry the ability to move up the grid.
+
+<strong>Dementors</strong>
+
+This was first real complex functionality that I came across during the project. My original efforts were for the dementors to hit the wall and then move down and then move across to the other wall just like the original space invaders. However, I found the logic for this challenging at the time and therefore came up with an alternative solution to use a setInterval and setTimeouts. 
+
+I created three separate functions for direction of the dementors movement and then called these functions in a `dementorMove()` function which was then called in the `gameStart()` function. 
+
+```js
+function moveDown() {
+    dementors.forEach(dementors => {
+      cells[dementors].classList.remove('dementors')
+    })
+    for (var i = 0; i < dementors.length; i++) {
+      dementors[i] += 20
+    }
+    dementors.forEach(dementors => {
+      cells[dementors].classList.add('dementors')
+    })
+  }
+```
+The code shown above is to show how I moved the dementors down the grid. I had used the forEach Array method to cycle through the array of dementor positions so that I could remove and add the dementor class to the cells array. To move all the dementors I used a for loop going through the length of the dementors array and this was because there were going to be moments that dementors were going to be removed from the game and so for it not to break it was important to loop over the length of the array. To move down you need to add the size of a cell grid, hence `+= 20`.
+
+```js
+  function dementorMove() {
+    const dementorMoveInterval = setInterval(() => {
+      setTimeout(() => {
+        moveDementors()
+      }, 750)
+      setTimeout(() => {
+        moveDown()
+      }, 1250)
+      setTimeout(() => {
+        moveLeft()
+      }, 1750)
+      for (let i = 0; i < dementors.length; i++) {
+        if (dementors[i] >= 359) {
+          clearInterval(dementorMoveInterval)
+          loseGame()
+        }
+      }
+    }, 2000)
+  }
+```
+
+This was the first use of a setInterval and setTimeout in the project. The major challenge here was getting the dementors to stop moving and I did this by clearing the setInterval when the dementors or dementor reached any cell on the bottom row of the grid. This would be one of the scenarios where the player would lose the game. The length of time for the setInterval and setTimeout varied between each level. Here I am showing you the code for the hardest level.
+
+<strong>Voldemort</strong>
+
+Voldemort would appear if the length of the demontors was equal to 0. At this point I would need to clear the dementor spells interval which will be shown in more depth later and also.
+
+```js
+else if (dementors.length === 0) {
+        clearInterval(dementorSpellInterval)
+        setTimeout(() => {
+          cells[arrayDementorSpell].classList.remove('dementorSpell')
+        }, 60)
+        voldemortAppear()
+      }
+```
+
+```js
+  function voldemortAppear() {
+    for (let i = 0; i < gridSize; i++) {
+      if (i === voldemort) {
+        cells[i].classList.add('voldemort')
+      }
+    }
+    document.querySelector('.voldemortlives').style.visibility = 'visible'
+    volLivesCount.innerHTML = `Voldemort Lives: ${lordVolLives}`
+    darkLordSpell()
+    moveVoldemort()
+    gameMusic.pause()
+    expectoPatronumSound.pause()
+    voldemortAppearMusic.play()
+  }
+```
+
+I originally wanted the appearance of voldemort to be a bit more dramatic by fading him in and having him cover multiple cells. However, I struggled to implement this and therefore the alternative was to change the music to be more intense, make voldemort move faster across the screen and reduce the time it took for voldemort to cast a spell. The movement of voldemort is very similar to that of the dementors but I wanted voldemort to remain on the same row and not move down the grid. A challenge I faced though was preventing voldemort from wrapping down the grid if he passed through a wall but I knew if I adjusted to the setTimeouts that this could be solved. Another reason for not wanting voldemort to get to the bottom was to try and replicate a battle between Harry and voldemort that they would be standing toe-to-toe against each other in battle until the other defeated the other.
+
+A final note on voldemorts appearance was that Harry's lives would increase by two if he managed to remove all the dementors.
+
+```js
+  if (dementors.length === 0) {
+     voldemortAppear()
+     harryLives += 2
+     livesCount.innerHTML = `Harry Lives: ${harryLives}`
+     console.log(harryLives)
+     voldemortLaugh.play()
+   }
+```
+
+![](./images/HIVoldemort.jpg)
+
+
+
+### Character Spells
+
+
+### Character Lives
+
+
+### Winning, Losing and Resetting the Game
+
 - Harry Movement
 - Harry Spells
   - Harry Spell Expecto Patronum against Dementors
