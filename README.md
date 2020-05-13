@@ -290,43 +290,193 @@ A final note on voldemorts appearance was that Harry's lives would increase by t
 
 ### Character Spells
 
+Definitely the most challenging part of this project was the spells. Many of the issues that I came across was being able to remove the spells when they hit the top of or the bottom of the grid. Getting the setTimeouts correct that the spells wouldn't stop in the middle of the grid. The removal of a dementor, losing a life for Harry, losing a life for voldemort when the spell entered into the cell that the specific character was in. Randomising the spells between the dementors was probably the trickiest challenge and the only one where I struggled to solve an issue and that was having the spells come from a dementor on the front-row. However, this issue doesn't impact the game in any way but is just a logical aspect that I wanted to implement. Having said all this, it was extremely rewarding that I was able to solve the majority of this challenges.
+
+#### Harry Spell
+
+There are two variants of the spells that Harry/Player can cast in this game. Expecto Patronum to remove the dementors and then an array of spells to defeact voldemort. Activating the spells was relatively simple by just using a keydown event listener.
+
+```js
+else if (event.key === ' ') {
+  event.preventDefault()
+  spellPosition = harry - width
+  patronasArray.push([spellPosition])
+  harrySpellPatronas()
+  spellsCast += 1
+  expectoPatronumSound.play()
+} else if (event.key === 'a') {
+  event.preventDefault()
+  allSpellPosition = harry - width
+  allSpellsArray.push([allSpellPosition])
+  harryAllMagic()
+  allSpellsCast += 1
+  playSpellSound()
+```
+
+The spell would be cast from the position that Harry was on the grid and because I wanted the player to be able to cast multiple spells instead of waiting for one spell to either hit a dementor or reach the end of the grid I would push the spell into an array and just add one to the number of spells cast. The number of spells cast could end up being infinite.
+
+The Expecto Patronus spell was just castly simply by holding down space and would call `expectoPatronumSound.play()` sound effect. However, one minor issue here is that the audio doesn't stop each time the Expecto Patronum spell is cast and just runs through all the way to the finish. This is a very insiginficant issue but one I would like to fix.
+
+In my efforts to make this game as realistic as possible or as accurate to the world of Harry Potter I didn't want Voldemort to lose a life from being hit by Expecto Patronum and instead wanted Harry to be able to cast a variety of spells by randomising a range of sound effects of the spells that would inflict damage to Voldemort.
+
+```js
+  const spells = ['sounds/stupefy.mp3',
+    'sounds/sectumsempra.mp3',
+    'sounds/rictusempra.mp3',
+    'sounds/reducto.mp3',
+    'sounds/reducio.mp3',
+    'sounds/periculum.mp3',
+    'sounds/harrycrucio.mp3',
+    'sounds/expelliarmus.mp3',
+    'sounds/diffindo.mp3',
+    'sounds/araniaexumai.mp3'
+  ]
+  let spellSound
+
+  function generateRandomNumber(max) {
+    return Math.floor(Math.random() * max)
+  }
+  function playSpellSound() {
+    const x = generateRandomNumber(spells.length - 1)
+    const spellSrc = spells[x]
+    if (spellSound) {
+      spellSound.pause()
+    } else {
+      spellSound = new Audio()
+    }
+    spellSound.src = spellSrc
+    spellSound.volume = 0.8
+    spellSound.play()
+  }
+``` 
+
+I would randomise the array of sound effects and call the `generateRandomNumber(max)` function in the `playSpellSound()` function. The main challenges here was pausing the sound of one spell for a new one to be activated and getting the src of the sounds so that I could then play them.
+
+The most challenging functionality was actually positioning the spell, pushing the spells into an array and implementing and clearing the spells setIntervals and setTimeouts.
+
+```js
+  const patronasArray = []
+  let spellsCast = 0
+  let patronasSpell = harry - width
+
+  function harrySpellPatronas() {
+    const spellArray = patronasArray[spellsCast]
+    const spellInterval = setInterval(() => {
+      cells[spellArray[0]].classList.remove('harrySpellExpecto')
+      patronasSpell = spellArray[0] - width
+      cells[patronasSpell].classList.add('harrySpellExpecto')
+      spellArray.pop()
+      spellArray.push(patronasSpell)
+      for (let i = 0; i < dementors.length; i++) {
+        if (spellArray.includes(dementors[i])) {
+          clearInterval(spellInterval)
+          cells[patronasSpell].classList.remove('dementors', 'harrySpellExpecto')
+          dementors.splice(i, 1)
+          score += 100
+          scoreCount.innerHTML = `Score: ${score}`
+        }
+        if (dementors.length === 0) {
+          voldemortAppear()
+          harryLives += 2
+          livesCount.innerHTML = `Harry Lives: ${harryLives}`
+          console.log(harryLives)
+          voldemortLaugh.play()
+        }
+      }
+    }, 50)
+    setTimeout(() => {
+      clearInterval(spellInterval)
+      setTimeout(() => {
+        gridTopRow.forEach((i) => {
+          if (cells[i].className === 'harrySpellExpecto') {
+            cells[i].classList.remove('harrySpellExpecto')
+          }
+        })
+      }, 30)
+    }, 925)
+  }
+```
+
+Above I am showing you the code for the Expecto Patronum spell as much of the code is very similar with the other Harry spells. The only differences are that you receive 500 points for hitting voldemort not 100 like you do when removing a dementor. Secondly, when you hit a dementor they are removed and when you hit voldemort he just loses a life.
+
+I was able to achieve the positioning of the spell by using similar logic to that of the dementor movement but the main challenge was being to cast more than one spell at a time. This was done by creating an array of nested arrays and passing that array into the cells array so that there could be multiple spells on the grid. I had to use the pop and push method so that that the position of the spell would move up each cell in the grid. The setInterval was critical here and basically took a bit of trial and error as I faced challenges of the spell stopping halfway up the grid. 
+
+Once I had achieved getting the spell to move up the grid to the end the next challenge was removing it from the top row of the grid as the spell would just remain at the top. I would firstly clear the spell interval and use another setTimeout and forEach method that a cell on the top row that included the class `harrySpellExpecto` would then be removed.
+
+The final challenge was removing a dementor from the game once a spell had entered the same cell that they were currently positioned in and then adding the score to your total score. I used a for loop to achieve this and the splice method to remove the dementor from the game. This would also require clearing the intervals and removing the classes of the spell and the dementors at the time the spellsArray included a dementor.
+
+#### Dementor Spells
+
+The final and another significant challenge of the project was randomising the Dementor spells. A lot of the same principles and logic applied to the Dementor Spells that were equivalant to that of the Harry Spells but obviously the major difference was the randomisation of the spells and using a setInterval to activate the speed and frequency that they were cast.
+
+```js
+  let randomDementorSpells
+  function randomDementorSpell() {
+    const randomDementorSpellInterval = setInterval(() => {
+      randomDementorSpells = dementors[Math.floor(Math.random() * dementors.length)]
+      defineRandomDementorSpell()
+    }, 450)
+    if (dementors.length === 0) {
+      clearInterval(randomDementorSpellInterval)
+    }
+  }
+
+  function defineRandomDementorSpell() {
+    if (dementors.length === 0) {
+      return
+    }
+    if (harryLives === 0) {
+      return
+    }
+    cells[randomDementorSpells + width].classList.add('dementorSpell')
+    console.log(cells[randomDementorSpells + width])
+    dementorSpellArray.push([randomDementorSpells + width])
+    spellDementor()
+    dementorSpellsCast += 1
+  }
+```
+
+As you can see the positioning of the spells follows a very similar logic to that of casting the Harry Spell but the starting position and frequency and speed of the spell was indicated using Math.random to pick a number within the array and cast the spell from there. An issue I had was clearing the intervals but it required me just using a simple return statement when either the length of the dementors array had equalled zero or harry had no remaining lives.
 
 ### Character Lives
+
+The same code was initiated for both Harry and Voldemort when they lost a life. A character would lose a life when the spell was included in the same grid cell that they were currently positioned in. For voldemort, similar to what I had done with the random sound effects for the spells, I did the same with when he lost a life in order to add another dynamic element to the game.
+
+```js
+  function harryLoseLife() {
+    if (harryLives === 5) {
+      harryLives -= 1
+      livesCount.innerHTML = `Harry Lives: ${harryLives}`
+      harryHit.play()
+    } else if (harryLives === 4) {
+      harryLives -= 1
+      livesCount.innerHTML = `Harry Lives: ${harryLives}`
+      harryHit.play()
+    } else if (harryLives === 3) {
+      harryLives -= 1
+      livesCount.innerHTML = `Harry Lives: ${harryLives}`
+      harryHit.play()
+    } else if (harryLives === 2) {
+      harryLives -= 1
+      livesCount.innerHTML = `Harry Lives: ${harryLives}`
+      harryHit.play()
+    } else if (harryLives === 1) {
+      harryLives -= 1
+      livesCount.innerHTML = `Harry Lives: ${harryLives}`
+      loseGame()
+    }
+    console.log(harryLives)
+  }
+```
+
+This function was called at the necessary moments for when Harry would lose a life.
 
 
 ### Winning, Losing and Resetting the Game
 
-- Harry Movement
-- Harry Spells
-  - Harry Spell Expecto Patronum against Dementors
-    - Removing Dementor Life + Adding Score
-  - Harry All Spells vs Voldemort
-    - rotating through the different sounds
-    - Removing Voldemort Life + Adding Score
-- Dementor Movement
-  - Set Intervals
-- Dementor Spells
-  - Randomising
-- Voldemort Appearance
-  - Once dementors were all removed
-  - Adding on 2 lives to Harry 
-- Voldemort Movement
-  - Same principle as dementors 
-- Harry Lose Life
-  -  Sounds and losing a life
-- Voldemort lose life
-  - Randomised sounds and losing a life
-  - Score increased by 500 every time Voldemort lost a life
-- Levels
-  - How I created three difficulties
-    - What I was doing originally but then changed the day before that I had separate HTMLs
+I had created 3 separate levels using different html files and therefore to reset the game or go back to the home page was relatively simple as I just used an `<a href>` to go back to the location I wanted to take the user.
 
-- Win Game, Lose Game, Restart Game, Go back to Homepage
-  - Use of animations on Harry and the Snitch
-  - Victory Music
-  - Loser Music
-  - Changing the state of the DOM
-
+Winning or Losing the game uses pretty much the same code and this is just changing what is being displayed in the DOM and using a different sound effect if you won or lost the game. There is a couple of animations implemented when you win or lose the game to ensure that the magic runs all the way through to the finish.
 
 ## Winners and Blockers
 
@@ -335,15 +485,11 @@ A final note on voldemorts appearance was that Harry's lives would increase by t
   - The Music and Images
     - Getting all the sound features and being able to implement them correctly and pause them when necessary.
     - The images reflect exactly what the game is about and what is happening in the game.
-  - The User Experience
-    - Design of the game
-  - It is true to Harry Potter
-    - The use of animations gives it that magical touch.
-  - The range of components and different areas of logic and functionality 
+  - The User Experience I think is very dynamic and exciting due to the design and the flow of the game, as well as all the features attached and the intricate details within the game.
+  - It is true to Harry Potter through the use of animations giving it that magical touch and also making certain scenarios in the game as realistic as possible.
+  - The range of components and different areas of logic and functionality.
   - I had issues removing the spells from both Harry and the Dementors when they hit either the top or the bottom of the grid.
   - It took me a while to write the correct code to randomise the sound effects for the harry's spells at voldemort and when voldemort would lose a life.
-  - Changing the score. 
-    - Constantly got stuck on 100
   - Originally I had one level and from the homepage I would just change the DOM to remove everything on the homepage and then show the game. However, this was relatively impractical and came with a few bugs. It was only till when on the final evening of the project when I decided to implement levels that I would make the homepage and all three levels separate HTML files. This has slightly slowed down the rendering of each page however, it has definitely improved the overall performance of the game.
 
 ### Blockers and Challengers
@@ -363,3 +509,6 @@ A final note on voldemorts appearance was that Harry's lives would increase by t
 
 
 ## Key learning areas
+
+- Javascript ES6 features.
+- The ability to stick to a time-frame.
